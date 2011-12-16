@@ -28,6 +28,7 @@ public class Input extends Composite {
 
 	public Input(String label) {
 		initWidget(uiBinder.createAndBindUi(this));
+		setLabel(label);
 	}
 
 	public void setLabel(String label) {
