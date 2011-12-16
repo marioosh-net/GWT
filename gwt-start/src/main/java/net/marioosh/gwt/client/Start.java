@@ -1,5 +1,6 @@
 package net.marioosh.gwt.client;
 
+import net.marioosh.gwt.client.uibinder.Input;
 import net.marioosh.gwt.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -76,6 +77,9 @@ public class Start implements EntryPoint {
     dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
     dialogVPanel.add(closeButton);
     dialogBox.setWidget(dialogVPanel);
+
+    Input input = new Input("label");
+    RootPanel.get().add(input);
 
     // Add a handler to close the DialogBox
     closeButton.addClickHandler(new ClickHandler() {
