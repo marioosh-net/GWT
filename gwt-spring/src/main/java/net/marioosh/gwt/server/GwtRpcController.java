@@ -4,9 +4,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -15,14 +17,15 @@ import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class GwtRpcController extends RemoteServiceServlet implements
-        Controller, ServletContextAware {
+@Controller
+@RequestMapping("/**/greet.rpc")
+public class GwtRpcController extends RemoteServiceServlet implements org.springframework.web.servlet.mvc.Controller {
 
+	@Autowired
     private ServletContext servletContext;
 
+    @Autowired
     private RemoteService remoteService;
-
-    private Class remoteServiceClass;
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -35,7 +38,7 @@ public class GwtRpcController extends RemoteServiceServlet implements
         try {
 
             RPCRequest rpcRequest = RPC.decodeRequest(payload,
-                    this.remoteServiceClass);
+                    this.remoteService.getClass());
 
             // delegate work to the spring injected service
             return RPC.invokeAndEncodeResponse(this.remoteService, rpcRequest
@@ -52,16 +55,6 @@ public class GwtRpcController extends RemoteServiceServlet implements
     @Override
     public ServletContext getServletContext() {
         return servletContext;
-    }
-
-    @Override
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
-
-    public void setRemoteService(RemoteService remoteService) {
-        this.remoteService = remoteService;
-        this.remoteServiceClass = this.remoteService.getClass();
     }
 
 }

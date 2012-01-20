@@ -23,30 +23,10 @@
     <context:component-scan base-package="net.marioosh.gwt" />
     <!-- <mvc:annotation-driven /> -->
 
-  <!-- The application context definition for the DispatcherServlet -->
-
-    <!-- Maps the request through to a concrete controller instance -->
-    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <value>
-            /**/greet.rpc=quoteController
-            </value>
-        </property>
-    </bean>
-
-    <!-- GwtRpcController wraps our service in order to decode the incoming -->
-    <!-- request then delegates processing of the call to the POJO service -->
-    <!-- and then encodes the return value forwarding the response. -->
-    <bean id="quoteController" class="net.marioosh.gwt.server.GwtRpcController">
-        <property name="remoteService">
-            <bean class="net.marioosh.gwt.server.GreetingServiceImpl" />
-        </property>
-    </bean>
-
     <!-- DATA SOURCE -->    
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-        <property name="url" value="jdbc:hsqldb:file:db" />
+        <property name="url" value="jdbc:hsqldb:file:db;shutdown=true" />
         <property name="username" value="sa" />
         <property name="password" value="" />
     </bean>

@@ -1,5 +1,7 @@
 package net.marioosh.gwt.client;
 
+import java.util.List;
+import net.marioosh.gwt.shared.model.entities.User;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
