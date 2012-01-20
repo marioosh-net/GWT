@@ -58,4 +58,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return false;
 	}
+	
+	@Override
+	public void deleteAllUsers() throws RPCException {
+		userDAO.deleteAll();
+	}
 }

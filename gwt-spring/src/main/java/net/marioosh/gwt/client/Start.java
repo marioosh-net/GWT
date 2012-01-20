@@ -39,6 +39,7 @@ public class Start implements EntryPoint {
    */
   public void onModuleLoad() {
     final Button sendButton = new Button("Send");
+    final Button deleteButton = new Button("Remove all");
     final TextBox nameField = new TextBox();
     nameField.setText("GWT User");
     final Label errorLabel = new Label();
@@ -50,6 +51,7 @@ public class Start implements EntryPoint {
     // Use RootPanel.get() to get the entire body element
     RootPanel.get("nameFieldContainer").add(nameField);
     RootPanel.get("sendButtonContainer").add(sendButton);
+    RootPanel.get("removeButtonContainer").add(deleteButton);
     RootPanel.get("errorLabelContainer").add(errorLabel);
 
     // Focus the cursor on the name field when the app loads
@@ -123,7 +125,7 @@ public class Start implements EntryPoint {
             // Show the RPC error message to the user
             dialogBox.setText("Remote Procedure Call - Failure");
             serverResponseLabel.addStyleName("serverResponseLabelError");
-            serverResponseLabel.setHTML(SERVER_ERROR);
+            serverResponseLabel.setHTML(caught.getMessage());
             dialogBox.center();
             closeButton.setFocus(true);
           }
@@ -143,6 +145,32 @@ public class Start implements EntryPoint {
     MyHandler handler = new MyHandler();
     sendButton.addClickHandler(handler);
     nameField.addKeyUpHandler(handler);
-    
+
+    deleteButton.addClickHandler(new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+			greetingService.deleteAllUsers(new AsyncCallback<Void>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+		            // Show the RPC error message to the user
+		            dialogBox.setText("Remote Procedure Call - Failure");
+		            serverResponseLabel.addStyleName("serverResponseLabelError");
+		            serverResponseLabel.setHTML(caught.getMessage());
+		            dialogBox.center();
+		            closeButton.setFocus(true);
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+		            dialogBox.setText("Remote Procedure Call");
+		            serverResponseLabel.removeStyleName("serverResponseLabelError");
+		            serverResponseLabel.setHTML("OK.");
+		            dialogBox.center();
+		            closeButton.setFocus(true);
+				}
+			});
+		}
+	});
   }
 }

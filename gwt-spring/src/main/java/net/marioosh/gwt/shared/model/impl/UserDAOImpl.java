@@ -101,6 +101,11 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		return add(u);
 	}
 	
+	@Override
+	public void deleteAll() {
+		getSession().createQuery("delete from User").executeUpdate();
+	}
+	
 	private String nextRandom() {
 		return new BigInteger(130, random).toString(32);
 	} 

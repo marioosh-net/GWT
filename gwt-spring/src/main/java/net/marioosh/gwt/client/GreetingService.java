@@ -14,4 +14,5 @@ public interface GreetingService extends RemoteService {
   String addRandomUsers(int count);
   String addUser(String login) throws RPCException;
   boolean isUserExist(String login);
+  void deleteAllUsers() throws RPCException;
 }

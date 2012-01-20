@@ -13,4 +13,5 @@ public interface UserDAO extends GenericDAO<User> {
 	public List<User> findAll(int page);
 	public int countPages(int rowPerPage);
 	public Serializable addRandom();
+	public void deleteAll();
 }
