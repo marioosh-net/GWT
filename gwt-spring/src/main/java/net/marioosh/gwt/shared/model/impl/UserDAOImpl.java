@@ -1,6 +1,8 @@
 package net.marioosh.gwt.shared.model.impl;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +23,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
 	private Logger log = Logger.getLogger(getClass());
 	
+	private SecureRandom random = new SecureRandom();
+	
 	public UserDAOImpl() {
 		super(User.class);
 	}
@@ -35,6 +39,13 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		String sql = "from User where login = ?";
 		Query query = getSession().createQuery(sql);
 		query.setString(0, login);
+		return (User) query.uniqueResult();
+	}
+	
+	@Override
+	public User getByLoginLike(String login) {
+		String sql = "from User where login like '%"+login+"%'";
+		Query query = getSession().createQuery(sql);
 		return (User) query.uniqueResult();
 	}
 
@@ -68,4 +79,29 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		return super.add(obj);
 	}
 
+	@Override
+	public Serializable addRandom() {
+		User u = new User();
+		u.setLogin(nextRandom());
+		u.setEmail(nextRandom());
+		u.setFirstname(nextRandom());
+		u.setLastname(nextRandom());
+		u.setPassword(nextRandom());
+		return add(u);
+	}
+	
+	@Override
+	public Serializable add(String login) {
+		User u = new User();
+		u.setLogin(login);
+		u.setEmail(nextRandom());
+		u.setFirstname(nextRandom());
+		u.setLastname(nextRandom());
+		u.setPassword(nextRandom());
+		return add(u);
+	}
+	
+	private String nextRandom() {
+		return new BigInteger(130, random).toString(32);
+	} 
 }

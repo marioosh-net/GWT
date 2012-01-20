@@ -118,4 +118,13 @@ public class User extends AbstractEntity implements Serializable {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "{ \n" +
+				"id: " + id + ", \n" +	
+				"login: " + login + ", \n" +
+				"firstname: " + firstname + ", \n" +
+				"lastname: " + lastname +
+				" }";
+	}
 }

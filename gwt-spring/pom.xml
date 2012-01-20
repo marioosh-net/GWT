@@ -48,14 +48,6 @@
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
       <version>1.0.0.GA</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>1.0.0.GA</version>
-      <classifier>sources</classifier>
-      <scope>provided</scope>
     </dependency>
     
         <!-- Spring -->
@@ -204,6 +196,7 @@
           <hostedWebapp>target/www</hostedWebapp>
           <!-- Ask GWT to create the Story of Your Compile (SOYC) (gwt:compile) -->
           <compileReport>true</compileReport>
+          <generateDirectory>${project.build.sourceDirectory}</generateDirectory>
         </configuration>
       </plugin>
 
