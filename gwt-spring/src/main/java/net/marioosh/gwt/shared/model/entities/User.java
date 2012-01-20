@@ -15,11 +15,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "seq_user", sequenceName = "seq_user", allocationSize = 1)
-public class User extends AbstractEntity implements Serializable {
+public class User extends AbstractEntity implements Serializable, IsSerializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_user")

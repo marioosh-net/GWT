@@ -1,5 +1,6 @@
 package net.marioosh.gwt.client;
 
+import net.marioosh.gwt.shared.model.entities.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -47,6 +48,13 @@ public interface GreetingServiceAsync
      * @see net.marioosh.gwt.client.GreetingService
      */
     void deleteAllUsers( AsyncCallback<Void> callback );
+
+
+    /**
+     * GWT-RPC service  asynchronous (client-side) interface
+     * @see net.marioosh.gwt.client.GreetingService
+     */
+    void allUsers( AsyncCallback<java.util.List<User>> callback );
 
 
     /**

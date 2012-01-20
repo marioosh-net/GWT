@@ -1,6 +1,9 @@
 package net.marioosh.gwt.client;
 
+import java.util.List;
 import net.marioosh.gwt.shared.FieldVerifier;
+import net.marioosh.gwt.shared.model.entities.User;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,6 +11,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -77,6 +82,51 @@ public class Start implements EntryPoint {
     dialogVPanel.add(closeButton);
     dialogBox.setWidget(dialogVPanel);
 
+    // grid
+    final DataGrid<User> dataGrid = new DataGrid(10);
+	Column<User, String> loginColumn = new Column<User, String>(new TextCell()) {
+		@Override
+		public String getValue(User user) {
+			return user.getLogin();
+		}
+	};
+	dataGrid.addColumn(loginColumn);
+	greetingService.allUsers(
+		new AsyncCallback<List<User>>(){
+			@Override
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+			}
+			@Override
+			public void onSuccess(List<User> result) {
+				GWT.log("SIZE: "+result.size());
+				dataGrid.setRowData(result);
+			}
+		}
+	);
+	Button refreshGrid = new Button("Refresh grid");
+	RootPanel.get("refreshButtonContainer").add(refreshGrid);
+	refreshGrid.addClickHandler(new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+			greetingService.allUsers(
+					new AsyncCallback<List<User>>(){
+						@Override
+						public void onFailure(Throwable caught) {
+							caught.printStackTrace();
+						}
+						@Override
+						public void onSuccess(List<User> result) {
+							GWT.log("SIZE: "+result.size());
+							dataGrid.setRowData(result);
+						}
+					}
+				);			
+		}
+	});
+	
+	RootPanel.get("grid").add(dataGrid);
+    
     // Add a handler to close the DialogBox
     closeButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
