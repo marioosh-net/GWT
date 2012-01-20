@@ -36,6 +36,13 @@ public interface GreetingServiceAsync
 
 
     /**
+     * GWT-RPC service  asynchronous (client-side) interface
+     * @see net.marioosh.gwt.client.GreetingService
+     */
+    void isUserExist( java.lang.String p0, AsyncCallback<java.lang.Boolean> callback );
+
+
+    /**
      * Utility class to get the RPC Async interface from client-side code
      */
     public static final class Util 

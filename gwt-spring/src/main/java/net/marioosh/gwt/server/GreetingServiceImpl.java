@@ -2,6 +2,7 @@ package net.marioosh.gwt.server;
 
 import java.util.HashSet;
 import net.marioosh.gwt.client.GreetingService;
+import net.marioosh.gwt.shared.RPCException;
 import net.marioosh.gwt.shared.model.dao.UserDAO;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public String addUser(String login) {
-		Long id = (Long) userDAO.add(login);
-		return userDAO.get(id)+"";
+	public String addUser(String login) throws RPCException {
+		if(!isUserExist(login)) {
+			Long id = (Long) userDAO.add(login);
+			return userDAO.get(id)+"";
+		} else {
+			throw new RPCException("Login exist!");
+		}
 	}
 	
 	@Override
@@ -44,5 +49,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		} catch (Exception e) {
 			return e.getMessage();
 		}
+	}
+	
+	@Override
+	public boolean isUserExist(String login) {
+		if(userDAO.getByLogin(login) != null){
+			return true;
+		}
+		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package net.marioosh.gwt.client;
 
+import net.marioosh.gwt.shared.RPCException;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -11,5 +12,6 @@ public interface GreetingService extends RemoteService {
   String greetServer(String name) throws IllegalArgumentException;
   String findUser(String login);
   String addRandomUsers(int count);
-  String addUser(String login);
+  String addUser(String login) throws RPCException;
+  boolean isUserExist(String login);
 }
