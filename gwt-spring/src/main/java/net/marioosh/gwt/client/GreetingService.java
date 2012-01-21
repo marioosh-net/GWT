@@ -18,4 +18,5 @@ public interface GreetingService extends RemoteService {
   boolean isUserExist(String login);
   void deleteAllUsers() throws RPCException;
   public List<User> allUsers();
+  public User randomUser();
 }

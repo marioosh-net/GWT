@@ -121,11 +121,15 @@ public class User extends AbstractEntity implements Serializable, IsSerializable
 
 	@Override
 	public String toString() {
-		return "{ \n" +
-				"id: " + id + ", \n" +	
-				"login: " + login + ", \n" +
-				"firstname: " + firstname + ", \n" +
-				"lastname: " + lastname +
+		return "{ " +
+				"id: " + id + ", " +	
+				"login: " + login + "," +
+				"password: " + password + ", " +
+				"firstname: " + firstname + ", " +
+				"lastname: " + lastname + ", " +
+				"email: " + email + ", " +
+				"date: " + date + ", " +
+				"telephone: " + telephone +
 				" }";
 	}
 }

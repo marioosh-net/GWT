@@ -108,5 +108,13 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 	
 	private String nextRandom() {
 		return new BigInteger(130, random).toString(32);
-	} 
+	}
+	
+	@Override
+	public User getRandomUser() {
+		String sql = "from User where 1 = 1";
+		Query query = getSession().createQuery(sql);
+		query.setMaxResults(1);
+		return (User) query.uniqueResult();
+	}
 }

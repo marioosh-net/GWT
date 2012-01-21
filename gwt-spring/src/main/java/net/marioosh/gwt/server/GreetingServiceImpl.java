@@ -68,6 +68,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	
 	@Override
 	public List<User> allUsers() {
-		return userDAO.findAll();
+		List<User> l = userDAO.findAll();
+		for(User u: l) {
+			log.info(u);
+		}
+		return l;
+	}
+	
+	public User randomUser() {
+		return userDAO.getRandomUser();
 	}
 }

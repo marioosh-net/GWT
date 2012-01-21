@@ -1,6 +1,7 @@
 package net.marioosh.gwt.client;
 
 import java.util.List;
+import org.mortbay.log.Log;
 import net.marioosh.gwt.shared.FieldVerifier;
 import net.marioosh.gwt.shared.model.entities.User;
 import com.google.gwt.cell.client.TextCell;
@@ -45,6 +46,7 @@ public class Start implements EntryPoint {
   public void onModuleLoad() {
     final Button sendButton = new Button("Send");
     final Button deleteButton = new Button("Remove all");
+    final Button getOne = new Button("one User");
     final TextBox nameField = new TextBox();
     nameField.setText("GWT User");
     final Label errorLabel = new Label();
@@ -58,6 +60,7 @@ public class Start implements EntryPoint {
     RootPanel.get("sendButtonContainer").add(sendButton);
     RootPanel.get("removeButtonContainer").add(deleteButton);
     RootPanel.get("errorLabelContainer").add(errorLabel);
+    RootPanel.get("getOne").add(getOne);
 
     // Focus the cursor on the name field when the app loads
     nameField.setFocus(true);
@@ -92,13 +95,13 @@ public class Start implements EntryPoint {
 	};
 	dataGrid.addColumn(loginColumn);
 	greetingService.allUsers(
-		new AsyncCallback<List<User>>(){
+		new AsyncCallback<List>(){
 			@Override
 			public void onFailure(Throwable caught) {
 				caught.printStackTrace();
 			}
 			@Override
-			public void onSuccess(List<User> result) {
+			public void onSuccess(List result) {
 				GWT.log("SIZE: "+result.size());
 				dataGrid.setRowData(result);
 			}
@@ -110,13 +113,13 @@ public class Start implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			greetingService.allUsers(
-					new AsyncCallback<List<User>>(){
+					new AsyncCallback<List>(){
 						@Override
 						public void onFailure(Throwable caught) {
 							caught.printStackTrace();
 						}
 						@Override
-						public void onSuccess(List<User> result) {
+						public void onSuccess(List result) {
 							GWT.log("SIZE: "+result.size());
 							dataGrid.setRowData(result);
 						}
@@ -222,5 +225,24 @@ public class Start implements EntryPoint {
 			});
 		}
 	});
+    
+    getOne.addClickHandler(new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent arg0) {
+			greetingService.randomUser(new AsyncCallback<User>() {
+				@Override
+				public void onFailure(Throwable arg0) {
+					arg0.printStackTrace();
+				}
+				
+				@Override
+				public void onSuccess(User user) {
+					GWT.log(user+"");
+				}
+				
+			});
+		}
+	});
+    
   }
 }
