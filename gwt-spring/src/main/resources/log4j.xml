@@ -23,7 +23,7 @@
 	<!-- to musi byc, z tego dziedzicza pozostale loggery -->
 	<root>
 		<!-- domyslnie od poziomu debug w gore bedzie logowane wszystko w pliku -->
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="console" />
 	</root>
 	<!-- ROOT LOGGER END -->

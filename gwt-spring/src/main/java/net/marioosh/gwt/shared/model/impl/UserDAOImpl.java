@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import net.marioosh.gwt.shared.model.dao.UserDAO;
 import net.marioosh.gwt.shared.model.entities.User;
@@ -87,6 +88,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		u.setFirstname(nextRandom());
 		u.setLastname(nextRandom());
 		u.setPassword(nextRandom());
+		u.setDate(new Date());
+		u.setTelephone(nextRandom());		
 		return add(u);
 	}
 	
@@ -98,6 +101,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		u.setFirstname(nextRandom());
 		u.setLastname(nextRandom());
 		u.setPassword(nextRandom());
+		u.setDate(new Date());
+		u.setTelephone(nextRandom());
 		return add(u);
 	}
 	
