@@ -114,9 +114,6 @@ public class Start implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				dialogBox.hide();
 				sendButton.setEnabled(true);
-				nameField.setFocus(true);
-				nameField.selectAll();			
-				event.preventDefault();
 			}
 		});
 
