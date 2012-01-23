@@ -35,11 +35,13 @@ public class GwtRpcController extends RemoteServiceServlet implements
         try {
 
             RPCRequest rpcRequest = RPC.decodeRequest(payload,
-                    this.remoteServiceClass);
+                    this.remoteServiceClass, this);
+            
+            onAfterRequestDeserialized(rpcRequest);
 
             // delegate work to the spring injected service
             return RPC.invokeAndEncodeResponse(this.remoteService, rpcRequest
-                    .getMethod(), rpcRequest.getParameters());
+                    .getMethod(), rpcRequest.getParameters(), rpcRequest.getSerializationPolicy());
         } catch (IncompatibleRemoteServiceException ex) {
             getServletContext()
                     .log(
