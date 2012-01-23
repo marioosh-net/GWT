@@ -19,6 +19,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -55,12 +56,12 @@ public class Start implements EntryPoint {
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("removeButtonContainer").add(deleteButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+		// input + buttons
+		HorizontalPanel hPanel = new HorizontalPanel();
+		hPanel.setSpacing(5);
+		hPanel.add(nameField);
+		hPanel.add(sendButton);
+		hPanel.add(deleteButton);
 
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
@@ -96,7 +97,7 @@ public class Start implements EntryPoint {
 		RootPanel.get("grid").add(table);
 
 		Button refreshGrid = new Button("Refresh grid");
-		RootPanel.get("refreshButtonContainer").add(refreshGrid);
+		hPanel.add(refreshGrid);
 		refreshGrid.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -104,6 +105,8 @@ public class Start implements EntryPoint {
 				refreshGrid(table);
 			}
 		});
+		
+		RootPanel.get("buttons").add(hPanel);
 
 		// Add a handler to close the DialogBox
 		closeButton.addClickHandler(new ClickHandler() {
@@ -112,7 +115,8 @@ public class Start implements EntryPoint {
 				dialogBox.hide();
 				sendButton.setEnabled(true);
 				nameField.setFocus(true);
-				nameField.selectAll();				
+				nameField.selectAll();			
+				event.preventDefault();
 			}
 		});
 
@@ -262,7 +266,7 @@ public class Start implements EntryPoint {
 		table.addColumn(cFirstname,"firstname");
 		table.addColumn(cLastname,"lastname");
 		table.addColumn(cEmail,"email");
-		table.addColumn(cTelephone,"telephone");
+		// table.addColumn(cTelephone,"telephone");
 		table.addColumn(cDate,"date");
 
 	}
