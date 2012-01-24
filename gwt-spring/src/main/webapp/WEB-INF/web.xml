@@ -17,17 +17,6 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>*.rpc</url-pattern>
     </servlet-mapping>
-    
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>net.marioosh.gwt.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/start/greet</url-pattern>
-  </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
